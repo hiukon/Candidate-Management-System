@@ -1,4 +1,4 @@
-// src/types/index.ts
+
 export interface Candidate {
     id: string;
     user_id: string;

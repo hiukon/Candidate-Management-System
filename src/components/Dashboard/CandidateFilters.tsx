@@ -1,4 +1,3 @@
-// src/components/Dashboard/CandidateFilters.tsx
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { FilterOptions } from '../../types';

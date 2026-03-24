@@ -1,4 +1,3 @@
-// src/utils/searchAlgorithm.ts
 import { Candidate, FilterOptions } from '../types';
 
 export function searchAndFilterCandidates(

@@ -1,4 +1,3 @@
-// src/lib/supabaseClient.ts
 import { createClient } from '@supabase/supabase-js';
 
 // Kiểm tra và xử lý environment variables

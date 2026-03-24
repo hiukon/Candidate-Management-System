@@ -1,4 +1,3 @@
-// src/hooks/useRealtimeCandidates.ts
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import { Candidate } from '../types';

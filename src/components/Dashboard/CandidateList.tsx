@@ -1,4 +1,3 @@
-// src/components/Dashboard/CandidateList.tsx
 import React from 'react';
 import { Candidate } from '../../types';
 
