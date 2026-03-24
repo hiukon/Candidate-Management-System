@@ -28,7 +28,6 @@
 - Row Level Security (RLS) đảm bảo người dùng chỉ xem được dữ liệu của mình
 - Storage policies phân quyền upload/download file
 
----
 
 ##  Công nghệ sử dụng
 
@@ -43,10 +42,6 @@
 | Storage | Supabase Storage |
 | Real-time | Supabase Realtime |
 
----
-
-
----
 
 ##  Edge Functions
 
@@ -82,10 +77,10 @@
 | Git | Bất kỳ |
 | Tài khoản | Supabase (miễn phí) |
 
----
 
-```bash
+
 ### Bước 1: Clone dự án
+```bash
 # Clone repository
 git clone https://github.com/yourusername/candidate-management.git
 # Di chuyển vào thư mục dự án

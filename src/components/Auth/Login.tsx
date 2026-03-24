@@ -149,7 +149,6 @@ export const Login: React.FC<LoginProps> = ({ onSwitchToRegister }) => {
                 </form>
             </div>
 
-            {/* Thêm CSS animation */}
             <style>{`
                 @keyframes fadeIn {
                     from {
