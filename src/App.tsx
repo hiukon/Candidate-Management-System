@@ -17,17 +17,14 @@ function App() {
   const [showRegister, setShowRegister] = useState(false);
   const [filters, setFilters] = useState<FilterOptions>({});
   const [error, setError] = useState<string | null>(null);
-  const [initialized, setInitialized] = useState(false); // Thêm state này
+  const [initialized, setInitialized] = useState(false);
 
-  // Function load candidates
   const loadCandidates = async () => {
     if (!session?.user) {
       console.log('No session user, skipping load');
       return;
     }
 
-    console.log('=== loadCandidates START ===');
-    console.log('User ID:', session.user.id);
 
     try {
       const { data, error } = await supabase
@@ -48,7 +45,6 @@ function App() {
       console.error('Exception in loadCandidates:', error);
       setError('Failed to load candidates');
     }
-    console.log('=== loadCandidates END ===');
   };
 
   // Setup realtime
@@ -73,21 +69,17 @@ function App() {
     };
   };
 
-  // Effect 1: Khởi tạo auth và load data
+  // Khởi tạo auth và load data
   useEffect(() => {
     const init = async () => {
-      console.log('=== INIT START ===');
+
       setLoading(true);
 
       try {
-        // Lấy session
         const { data: { session: initialSession } } = await supabase.auth.getSession();
         console.log('Initial session:', initialSession?.user?.id);
 
-        // Set session
         setSession(initialSession);
-
-        // Nếu có session, load candidates
         if (initialSession) {
           await loadCandidates();
           setupRealtimeSubscription();
@@ -98,20 +90,18 @@ function App() {
       } finally {
         setLoading(false);
         setInitialized(true);
-        console.log('=== INIT END ===');
       }
     };
 
     init();
 
-    // Cleanup
     return () => {
       const sub = setupRealtimeSubscription();
       if (sub) sub();
     };
   }, []);
 
-  // Effect 2: Theo dõi thay đổi session
+  // Theo dõi thay đổi session
   useEffect(() => {
     if (!initialized) return;
 
@@ -173,12 +163,20 @@ function App() {
 
   const handleUpdateStatus = async (id: string, newStatus: string) => {
     try {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('candidates')
         .update({ status: newStatus, updated_at: new Date().toISOString() })
-        .eq('id', id);
+        .eq('id', id)
+        .select();
 
-      if (error) throw error;
+      console.log('Update response:', { data, error });
+
+      if (error) {
+        console.error('Update error:', error);
+        throw error;
+      }
+
+      console.log('Update successful!');
       await loadCandidates();
     } catch (error) {
       console.error('Error updating status:', error);
@@ -205,7 +203,6 @@ function App() {
 
   const filteredCandidates = searchAndFilterCandidates(candidates, filters);
 
-  // Show error if Supabase not configured
   if (error && !session) {
     return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
